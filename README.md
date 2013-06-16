@@ -42,6 +42,8 @@ A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/co
 	
 ### Nested helpers
 
+	typo.log('{#list}3{/list}');
+
 Which will not show up before `typo@0.2.0`.
 
 if you like `typo`, there will be a billion thanks if you fork `typo` and make pull request.
