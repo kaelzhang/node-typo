@@ -1,7 +1,7 @@
 # Typo
 > Make typography beautiful in stdout
 
-A formated stdout tool and parser.
+A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/cortex) uses.
 
 ## Installation
 	npm install typo --save
@@ -18,3 +18,5 @@ A formated stdout tool and parser.
 	typo.log(pattern, context);
 	
 	typo.parse(pattern);
+	
+## Usage
