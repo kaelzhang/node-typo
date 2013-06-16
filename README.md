@@ -10,9 +10,10 @@ A formated stdout tool and parser.
 
 	var typo = require('typo');
 	
-	var pattern = '{{#bold "RGB"}} stands for {{#red 0}}, {{#green g}} and {{#blue blue}}';
+	var pattern = '{{#bold abbr}} stands for {{#red 0}}, {{g}} and {{#blue blue}}';
 	var context = [0];
-	contex.g = 'green';
+	context.g = 'green';
+	context.abbr = '"RGB"';
 	
 	typo.log(pattern, context);
 	
