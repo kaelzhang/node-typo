@@ -1,45 +1,45 @@
-# Typo
+ Typo
 > Make typography beautiful in command-line.
 
-A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/cortex) uses.
+A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/cortex) uses and is tiny, fast, and of high scalability.
 
-## Installation
+ Installation
 	npm install typo --save
 	
-## Getting started
+ Getting started
 
 	var typo = require('typo');
 	
-	typo.log("There's once in a {#blue blue} moon~");
+	typo.log("There's once in a {{blue blue}} moon~");
 	
-## Usage
+ Usage
 
-### Simple substitution
+ Simple substitution
 
-	typo.log('{1}{2}{3}', ['a', 'b']); // print 'ab3'
+	typo.log('{{1}}{{2}}{{3}}', ['a', 'b']); // print 'ab3'
 	
-	typo.log('{a}{b}{c.a}{c.b}', {a: 1, b:2, c: {a: 3}}); // print '123c.b'
+	typo.log('{{a}}{{b}}{{c.a}}{{c.b}}', {a: 1, b:2, c: {a: 3}}); // print '123c.b'
 	
-### With helper functions
+ With helper functions
 
-	typo.log('{#bold abc}'); 		// print a bold 'abc'
+	typo.log('{{bold abc}}'); 		// print a bold 'abc'
 	
-### With piped helpers
+ With piped helpers
 
-	typo.log('{#bold|blue abc}');	// print a blue bold 'abc'
+	typo.log('{{bold|blue abc}}');	// print a blue bold 'abc'
 	
-### Custom helpers
+ Custom helpers
 
-	typo.register('sum', function(value){
+	typo.register('sum', function(value){{
 		return (Array.isArray(value) ? value : [value])
 			.reduce(function(prev, current){
 				return (parseInt(current) || 0) + prev;
 			}, 0);
-	});
+	}});
 	
-	typo.log('{#sum 1,2,3}'); 		// print 6
+	typo.log('{{sum 1,2,3}}'); 		// print 6
 	
-### Nested helpers
+ Nested helpers
 
 Which will not show up before `typo@0.2.0`.
 
@@ -47,10 +47,10 @@ if you like `typo`, there will be a billion thanks if you fork `typo` and make p
 
 ****
 
-## Advanced Sections
+ Advanced Sections
 
-### Registering asynchronous helpers
+ Register asynchronous helpers
 
-### Change '{'
+ Change '{{'
 
-### Using help categories
+ Using help categories
