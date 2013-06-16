@@ -1,11 +1,23 @@
 {
   "name": "typo",
   "version": "0.1.0",
-  "description": "Make stdout much more funny!",
+  "description": "Make typography beautiful in command-line!",
   "main": "lib/typo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "typo",
+    "stdout",
+    "console",
+    "console.log",
+    "color",
+    "template",
+    "engine",
+    "typography",
+    "cli",
+    "command-line"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/kaelzhang/typo.git"
@@ -14,5 +26,8 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/kaelzhang/typo/issues"
+  },
+  "dependencies": {
+    "async": "~0.2.9"
   }
 }
