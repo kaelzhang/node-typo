@@ -1,5 +1,5 @@
 # Typo
-> Make typography beautiful in stdout
+> Make typography beautiful in command-line.
 
 A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/cortex) uses.
 
@@ -10,13 +10,47 @@ A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/co
 
 	var typo = require('typo');
 	
-	var pattern = '{{#bold abbr}} stands for {{#red 0}}, {{g}} and {{#blue blue}}';
-	var context = [0];
-	context.g = 'green';
-	context.abbr = '"RGB"';
-	
-	typo.log(pattern, context);
-	
-	typo.parse(pattern);
+	typo.log("There's once in a {#blue blue} moon~");
 	
 ## Usage
+
+### Simple substitution
+
+	typo.log('{1}{2}{3}', ['a', 'b']); // print 'ab3'
+	
+	typo.log('{a}{b}{c.a}{c.b}', {a: 1, b:2, c: {a: 3}}); // print '123c.b'
+	
+### With helper functions
+
+	typo.log('{#bold abc}'); 		// print a bold 'abc'
+	
+### With piped helpers
+
+	typo.log('{#bold|blue abc}');	// print a blue bold 'abc'
+	
+### Custom helpers
+
+	typo.register('sum', function(value){
+		return (Array.isArray(value) ? value : [value])
+			.reduce(function(prev, current){
+				return (parseInt(current) || 0) + prev;
+			}, 0);
+	});
+	
+	typo.log('{#sum 1,2,3}'); 		// print 6
+	
+### Nested helpers
+
+Which will not show up before `typo@0.2.0`.
+
+if you like `typo`, there will be a billion thanks if you fork `typo` and make pull request.
+
+****
+
+## Advanced Sections
+
+### Registering asynchronous helpers
+
+### Change '{'
+
+### Using help categories
