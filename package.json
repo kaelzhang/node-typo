@@ -1,7 +1,7 @@
 {
   "name": "typo",
   "version": "0.1.0",
-  "description": "Make typography beautiful in command-line!",
+  "description": "Typo is a scalable template engine designed for cli, which help to format your console output! Typo supports basic ANSI color(background and forground), underline, italic, etc.",
   "main": "lib/typo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,12 +11,21 @@
     "stdout",
     "console",
     "console.log",
+    "ansi",
     "color",
     "template",
     "engine",
     "typography",
     "cli",
-    "command-line"
+    "command-line",
+    "handlebar",
+    "mustache",
+    "template engine",
+    "format",
+    "bold",
+    "underline",
+    "italic",
+    "background"
   ],
   "repository": {
     "type": "git",
@@ -28,6 +37,5 @@
     "url": "https://github.com/kaelzhang/typo/issues"
   },
   "dependencies": {
-    "async": "~0.2.9"
   }
 }
