@@ -2,9 +2,9 @@
 
 > Make typography beautiful in command-line.
 
-Typo is a scalable template engine designed for and focused on command-line (cli), which help to format and beautify your console output.
+Typo is a scalable template engine designed for and focused on command-line (cli), which helps to format and beautify your console output.
 
-Typo not only supports basic [ANSI escope codes](http://en.wikipedia.org/wiki/ANSI_escape_code), such as basic background and foreground colors, underline, bold, etc, and **ALSO** full 8-bit colors (256 colors).
+Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/ANSI_escape_code), such as basic background and foreground colors, underline, bold, etc, and **ALSO** full 8-bit colors (256 colors).
 
     
 ## Getting started
@@ -21,7 +21,9 @@ Typo not only supports basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
 
 #### Simple substitution
     
-    typo.log('{{1}}{{b}}{{c.a}}{{c.b}}', {'1': 1, b:2, c: {a: 3}}); // print '123c.b'
+    typo.log('{{1}}{{b}}{{c.a}}{{c.b}}', {'1': 1, b:2, c: {a: 3}}); 
+    // print '123c.b'.
+    // in which, `'c.b'` is not matched in `values` and not substituted.
     
 #### With helper functions
 
@@ -30,7 +32,7 @@ Typo not only supports basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
     
 #### With piped helpers
 
-    typo.log('{{bold|blue abc}}');    // print a blue bold 'abc'
+    typo.log('{{bold|blue|underline abc}}'); // print a blue bold 'abc' with a underline
     
 #### Custom helpers
 
@@ -99,7 +101,7 @@ Besides, the `data` (in "syntax" section) could be fetched using `this.data` ins
 
 If helper has more than one term parameters, it will be treated as an async helper.
 
-And the second parameter will the callback which should be implemented inside the helper function.
+And the second parameter will be the callback which should be implemented inside the helper function.
 
 ****
 
