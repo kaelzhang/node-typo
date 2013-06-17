@@ -24,6 +24,7 @@ A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/co
 ### With helper functions
 
     typo.log('{{bold abc}}');         // print a bold 'abc'
+    typo.log('{{rgb abc:#00ffcc}}');
     
 ### With piped helpers
 
@@ -32,10 +33,9 @@ A formated stdout tool and parser which [cortex](https://github.com/kaelzhang/co
 ### Custom helpers
 
     typo.register('sum', function(value){{
-        return (Array.isArray(value) ? value : [value])
-            .reduce(function(prev, current){
-                return (parseInt(current) || 0) + prev;
-            }, 0);
+        return value.split(',').reduce(function(prev, current){
+            return (parseInt(current) || 0) + prev;
+        }, 0);
     }});
     
     typo.log('{{sum 1,2,3}}');         // print 6
