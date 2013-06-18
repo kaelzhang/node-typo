@@ -1,6 +1,6 @@
 {
   "name": "typo",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Typo is a scalable template engine designed for cli, which help to format your console output! Typo supports full 256-color ANSI background and foreground, underline, italic, etc.",
   "main": "lib/typo",
   "scripts": {
