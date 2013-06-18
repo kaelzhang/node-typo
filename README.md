@@ -2,10 +2,12 @@
 
 > Make typography beautiful in command-line.
 
-Typo is a scalable template engine designed for and focused on command-line (cli), which helps to format and beautify your console output.
+Typo is a scalable node.js template engine designed for and focused on command-line (cli), which helps to format and beautify your console output.
 
 Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/ANSI_escape_code), such as basic background and foreground colors, underline, bold, etc, and **ALSO** full 8-bit colors (256 colors).
 
+## Installation
+	npm install typo --save
     
 ## Getting started
 
@@ -15,7 +17,7 @@ Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
     
 ## Syntax
 
-	( '{{<helper[|helper]> <text>[:<data>]}}', <object> );
+	( '{{<helper[:<data>][|helper[:<data>]]> <text>}}', <object> );
 
 ## Usage
 
@@ -28,7 +30,7 @@ Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
 #### With helper functions
 
     typo.log('{{bold abc}}');         // print a bold 'abc'
-    typo.log('{{rgb abc:#00ffcc}}');  // with a specified RGB color!
+    typo.log('{{rgb:#00ffcc abc}}');  // with a specified RGB color!
     
 #### With piped helpers
 
@@ -52,6 +54,38 @@ Which will not show up before `typo@0.2.0`.
 
 if you like `typo`, there will be a billion thanks if you fork `typo` and make pull request.
 
+## Available helpers
+The helpers below are built-in helpers of typo, and you could define your own helpers by `typo.register` method.
+
+There will also be typo plugins soon or gradually.
+
+### {{rgb \<text\>:\<rgb\>}}
+
+Highlight your text `text` with any RGB colors filled in foreground. 
+
+Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which is awesome.
+	
+	typo.log('{{rgb:#f26d7d|bg.rgb:#000 peach bg and black font}}');
+	
+There's a background version of RGB: `{{bg.rgb:<rgb> <text>}}`.
+
+### Basic colors
+
+Eight basic ANSI colors:
+
+0     |  1  |   2   |    3   |  4   |    5    |  6   |   7
+----- | --- | ----- | ------ | ---- | ------- | ---- | -----
+black | red | green | yellow | blue | magenta | cyan | white
+
+	typo.log('{{magenta purple text}}');
+	
+### Other text styles
+
+- italic # not widely supported. Sometimes treated as inverse.
+- bold
+- underline
+- inverse
+- strikethrough
 
 ## Methods
 
@@ -102,6 +136,11 @@ Besides, the `data` (in "syntax" section) could be fetched using `this.data` ins
 If helper has more than one term parameters, it will be treated as an async helper.
 
 And the second parameter will be the callback which should be implemented inside the helper function.
+
+##### helpers_map
+
+`Object`
+
 
 ****
 

@@ -5,15 +5,15 @@ var typo = require('typo');
 var a = 'abc{{blue|bold blu e}}{{blue blue}} eee{{bold a}} {{0}}abc{{red red}}';
 
 typo.log(a, {a: 'bold'}, function(err, value) {
-    console.log(err, value);
+    console.log('result', err, value);
 });
 
 typo.log('{{italic a}}{{b}}{{c.a}}{{c.b}}', {a: 1, b:2, c: {a: 3}}, function(err, value) {
-    console.log(err, value);
+    console.log('result', err, value);
 });
 
 typo.log('{{underline a}}', {a: 1}, function(err, value) {
-    console.log(err, value);
+    console.log('result', err, value);
 });
 
 typo.register('sum', function(value){{
@@ -24,3 +24,9 @@ typo.register('sum', function(value){{
 }});
 
 typo.log('{{sum 1,2,3}}');      // print 6
+
+typo.log(
+	'{{rgb:#f26d7d peach font}}' + 
+	'{{bg.rgb:#f26d7d|rgb:#000 peach bg and black font}}' +
+	'{{bg.rgb:#f26d7d peach bg and black font}}'
+);
