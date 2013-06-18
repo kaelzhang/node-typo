@@ -65,7 +65,7 @@ Highlight your text `text` with any RGB colors filled in foreground.
 
 Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which is awesome.
 	
-	typo.log('{{rgb:#f26d7d|bg.rgb:#000 peach bg and black font}}');
+	typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
 	
 There's a background version of RGB: `{{bg.rgb:<rgb> <text>}}`.
 
