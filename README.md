@@ -28,7 +28,7 @@ Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
 #### With helper functions
 
     typo.log('{{bold abc}}');         // print a bold 'abc'
-    typo.log('{{rgb abc:#00ffcc}}');
+    typo.log('{{rgb abc:#00ffcc}}');  // with a specified RGB color!
     
 #### With piped helpers
 
