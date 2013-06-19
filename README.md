@@ -6,6 +6,8 @@ Typo is a scalable node.js template engine designed for and focused on command-l
 
 Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/ANSI_escape_code), such as basic background and foreground colors, underline, bold, etc, and **ALSO** full 8-bit colors (256 colors).
 
+![screenshot](https://raw.github.com/kaelzhang/typo/master/screenshot.png)
+
 ## Installation
 	npm install typo --save
     
