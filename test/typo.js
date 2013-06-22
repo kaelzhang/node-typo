@@ -30,3 +30,17 @@ typo.log(
 	'{{bg.rgb:#f26d7d|rgb:#000 peach bg and black font}}' +
 	'{{bg.rgb:#f26d7d peach bg and black font}}'
 );
+
+typo.register({
+    json: function(value) {
+        return JSON.stringify(value);
+    }
+});
+
+typo.log('json: {{json a}}', {
+    a: {
+        a: {
+            b: 2
+        }
+    }
+});

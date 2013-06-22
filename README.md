@@ -9,13 +9,18 @@ Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
 ![screenshot](https://raw.github.com/kaelzhang/typo/master/screenshot.png)
 
 ## Installation
-	npm install typo --save
+
+```bash
+npm install typo --save
+```
     
 ## Getting started
 
-    var typo = require('typo');
-    
-    typo.log("There's once in a {{blue blue}} moon~");
+```js
+var typo = require('typo');
+
+typo.log("There's once in a {{blue blue}} moon~");
+```
     
 ## Syntax
 
@@ -24,33 +29,43 @@ Typo supports not only basic [ANSI escope codes](http://en.wikipedia.org/wiki/AN
 ## Usage
 
 #### Simple substitution
-    
-    typo.log('{{1}}{{b}}{{c.a}}{{c.b}}', {'1': 1, b:2, c: {a: 3}}); 
-    // print '123c.b'.
-    // in which, `'c.b'` is not matched in `values` and not substituted.
+
+```js
+typo.log('{{1}}{{b}}{{c.a}}{{c.b}}', {'1': 1, b:2, c: {a: 3}}); 
+// print '123c.b'.
+// in which, `'c.b'` is not matched in `values` and not substituted.
+```
     
 #### With helper functions
 
-    typo.log('{{bold abc}}');         // print a bold 'abc'
-    typo.log('{{rgb:#00ffcc abc}}');  // with a specified RGB color!
+```js
+typo.log('{{bold abc}}');         // print a bold 'abc'
+typo.log('{{rgb:#00ffcc abc}}');  // with a specified RGB color!
+```
     
 #### With piped helpers
 
-    typo.log('{{bold|blue|underline abc}}'); // print a blue bold 'abc' with a underline
+```js
+typo.log('{{bold|blue|underline abc}}'); // print a blue bold 'abc' with a underline
+````
     
 #### Custom helpers
 
-    typo.register('sum', function(value){{
-        return value.split(',').reduce(function(prev, current){
-            return (parseInt(current) || 0) + prev;
-        }, 0);
-    }});
-    
-    typo.log('{{sum 1,2,3}}');         // print 6
+```js
+typo.register('sum', function(value){{
+    return value.split(',').reduce(function(prev, current){
+        return (parseInt(current) || 0) + prev;
+    }, 0);
+}});
+
+typo.log('{{sum 1,2,3}}');         // print 6
+```
     
 #### Nested helpers
 
-    typo.log('{#list}3{/list}');
+```js
+typo.log('{#list}3{/list}');
+```
 
 Which will not show up before `typo@0.2.0`.
 
@@ -67,7 +82,9 @@ Highlight your text `text` with any RGB colors filled in foreground.
 
 Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which is awesome.
 	
-	typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
+```js
+typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
+```
 	
 There's a background version of RGB: `{{bg.rgb:<rgb> <text>}}`.
 
