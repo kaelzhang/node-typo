@@ -76,11 +76,11 @@ The helpers below are built-in helpers of typo, and you could define your own he
 
 There will also be typo plugins soon or gradually.
 
-### {{rgb \<text\>:\<rgb\>}}
+### {{rgb:\<rgb\> \<text\>}}
 
 Highlight your text `text` with any RGB colors filled in foreground. 
 
-Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which is awesome.
+Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which will be really helpful.
 	
 ```js
 typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
@@ -159,6 +159,12 @@ And the second parameter will be the callback which should be implemented inside
 ##### helpers_map
 
 `Object`
+
+****
+## Typo Plugins
+
+- [typo-image](https://github.com/kaelzhang/typo-image): display pictures in CLI !
+- [typo-ascii](https://github.com/kaelzhang/typo-image): ascii text in CLI with all kinds of styles ! (on developing)
 
 
 ****
