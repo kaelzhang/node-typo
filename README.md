@@ -21,12 +21,19 @@ var typo = require('typo');
 
 typo.log("There's once in a {{blue blue}} moon~");
 ```
-    
-## Syntax
 
-	( '{{<helper[:<data>][|helper[:<data>]]> <text>}}', <object> );
+## Typo Plugins
+
+- [typo-image](https://github.com/kaelzhang/typo-image): display pictures in CLI !
+- [typo-ascii](https://github.com/kaelzhang/typo-image): ascii text in CLI with all kinds of styles ! (on developing)
+
+****
 
 ## Usage
+
+### Syntax
+
+	( '{{<helper[:<data>][|helper[:<data>]]> <text>}}', <object> );
 
 #### Simple substitution
 
@@ -159,12 +166,6 @@ And the second parameter will be the callback which should be implemented inside
 ##### helpers_map
 
 `Object`
-
-****
-## Typo Plugins
-
-- [typo-image](https://github.com/kaelzhang/typo-image): display pictures in CLI !
-- [typo-ascii](https://github.com/kaelzhang/typo-image): ascii text in CLI with all kinds of styles ! (on developing)
 
 
 ****
