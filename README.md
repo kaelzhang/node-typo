@@ -25,7 +25,7 @@ typo.log("There's once in a {{blue blue}} moon~");
 ## Typo Plugins
 
 - [typo-image](https://github.com/kaelzhang/typo-image): display pictures in CLI !
-- [typo-ascii](https://github.com/kaelzhang/typo-ascii): ascii text in CLI with all kinds of styles ! (on developing)
+- [typo-ascii](https://github.com/kaelzhang/typo-ascii): ascii art text in CLI with all kinds of styles ! (on developing)
 
 ****
 
