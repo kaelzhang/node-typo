@@ -34,7 +34,7 @@
     "url": "git://github.com/kaelzhang/typo.git"
   },
   "author": "kael",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kaelzhang/typo/issues"
   },
