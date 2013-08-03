@@ -50,4 +50,4 @@ typo.log('json: {{json a}}', {
     }
 });
 
-typo.write('blahblah')
+typo.write(true);
