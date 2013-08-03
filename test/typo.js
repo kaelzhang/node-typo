@@ -1,7 +1,7 @@
 'use strict';
 
 var typo = require('typo')({
-    clean: ~ process.argv.indexOf('--clean'),
+    colors: ! ~ process.argv.indexOf('--clean'),
     output: process.stdout
 });
 

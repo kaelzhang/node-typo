@@ -159,11 +159,11 @@ var Typo = require('typo').Typo;
 var typo = new Typo(options);
 ```
 
-##### options.clean `Boolean`
+##### options.colors `Boolean`
 
-Optional, default to `false`
+Optional, default to `true`
 
-If true, typo will clean all styles and output pure text, which is really helpfull if you use typo in CI.
+If true, typo will clean all styles (colors, bold, etc) and output the pure text, which is really helpfull if you use typo in CI.
 
 ##### options.output `Stream.Writeable`
 
