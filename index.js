@@ -16,7 +16,7 @@ typo.register = function (pattern, parser) {
     Typo._register(Typo.Helpers.prototype, pattern, parser);  
 };
 
-
-
-
+typo.plugin = function (plugin) {
+    typo.register(plugin.helpers);
+};
 

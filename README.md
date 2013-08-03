@@ -30,6 +30,7 @@ typo.log("There's once in a {{blue blue}} moon~");
 
 ## Typo Plugins
 
+- [typo-rgb](https://github.com/kaelzhang/typo-rgb): support full 8-bit RGB colors !
 - [typo-image](https://github.com/kaelzhang/typo-image): display pictures in CLI !
 - [typo-ascii](https://github.com/kaelzhang/typo-ascii): ascii art text in CLI with all kinds of styles ! (on developing)
 
@@ -53,7 +54,7 @@ typo.log('{{1}}{{b}}{{c.a}}{{c.b}}', {'1': 1, b:2, c: {a: 3}});
 
 ```js
 typo.log('{{bold abc}}');         // print a bold 'abc'
-typo.log('{{rgb:#00ffcc abc}}');  // with a specified RGB color!
+typo.log('{{red abc}}');  		   // print a red 'abc'
 ```
     
 #### With piped helpers
@@ -73,6 +74,20 @@ typo.register('sum', function(value){{
 
 typo.log('{{sum 1,2,3}}');         // print 6
 ```
+
+#### Work with plugins
+
+You need to install plugins first.
+```sh
+npm install typo-image
+```
+
+```js
+var image = require('typo-image');
+typo.plugin(image);
+
+typo.log('{{~image ./logo.png}}');  // will print the png image to the CLI !
+```
     
 #### Nested helpers
 
@@ -80,26 +95,14 @@ typo.log('{{sum 1,2,3}}');         // print 6
 typo.log('{#list}3{/list}');
 ```
 
-Which will not show up before `typo@0.2.0`.
+Which will not show up before `typo@1.0.0`.
 
-if you like `typo`, there will be a billion thanks if you fork `typo` and make pull request.
+if you like `typo`, there will be a billion thanks if you fork `typo` and make pull requests.
 
 ## Available helpers
 The helpers below are built-in helpers of typo, and you could define your own helpers by `typo.register` method.
 
 There will also be typo plugins soon or gradually.
-
-### {{rgb:\<rgb\> \<text\>}}
-
-Highlight your text `text` with any RGB colors filled in foreground. 
-
-Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which will be really helpful.
-	
-```js
-typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
-```
-	
-There's a background version of RGB: `{{bg.rgb:<rgb> <text>}}`.
 
 ### Basic colors
 
@@ -119,38 +122,94 @@ black | red | green | yellow | blue | magenta | cyan | white
 - inverse
 - strikethrough
 
-## Methods
+### Plugin: {{rgb:\<rgb\> \<text\>}}
+
+> You need to install plugin 'typo-rgb' to use this helper.
+
+```sh
+npm install typo-rgb --save
+```
+
+Highlight your text `text` with any RGB colors filled in foreground. 
+
+Notice that if your RGB color is not a standard 8-bit RGB color, typo will **automatically choose the closest** one in the color palette, which will be really helpful.
+	
+```js
+typo.plugin(require('typo-rgb'));
+typo.log('{{bg.rgb:#f26d7d|rgb:#000|bold peach bg and black bold font}}');
+```
+	
+There's a background version of RGB: `{{bg.rgb:<rgb> <text>}}`.
+
+
+## Typo factory and typo constructor
+
+How to create a typo instance.
+
+```js
+var Typo = require('typo');
+var typo = Typo(options);
+```
+
+Or
+
+```js
+// this is the typo constructor from which your module  could be inherited.
+var Typo = require('typo').Typo; 
+var typo = new Typo(options);
+```
+
+##### options.clean `Boolean`
+
+Optional, default to `false`
+
+If true, typo will clean all styles and output pure text, which is really helpfull if you use typo in CI.
+
+##### options.output `Stream.Writeable`
+
+Optional, no default value
+
+The writeable stream to write into. If set, typo will `.pipe()` output to that stream.
+
+However, you could also use `.pipe()` method to do this.
+
+
+## Instance Methods
+
+These methods below is the methods of the typo instance.
 
 ### typo.log(pattern [,values [,callback]])
 Print a formated output to the command-line. Has no return value.
 
-##### pattern
-`string`
+##### pattern `string`
 
 Template pattern
 
-##### values
+##### values `Object|Array`
 
-`Object|Array`, optional
+Optional
 
 If no `values` passed or not matched, the relevant pattern will not be substituted.
 
-##### callback
+##### callback `function(err, output)`
 
-`function(err, output)`, optional
+Optional
 
 Typo also support asynchronous help functions. See "register asynchronous helpers" section.
 
 
 ### typo.template(pattern [,values [,callback]])
 
-Returns the parsed or substituted ouput, if all helpers are synchronous.
+##### Returns 
+
+The parsed or substituted ouput, if all helpers are synchronous.
 
 Or output will be passed to `callback`. 
 
 ### typo.register(name, helper)
 ### typo.register(helpers_map)
-Register helpers
+
+Register helpers for the current instance
 
 ##### name
 `string`
@@ -173,13 +232,19 @@ And the second parameter will be the callback which should be implemented inside
 
 `Object`
 
+### typo.plugin(plugin)
 
-****
+Register a plugin
 
-## Advanced Sections
+##### plugin `Object`
 
-### Register asynchronous helpers
+The typo plugin.
 
-### Change '{{'
+## Register global helpers and plugins
 
-### Using help categories
+```js
+var Typo = require('typo');
+
+Typo.register(helpers); // the same parameters as `typo.register`
+Typo.plugin(plugin);	 // the same parameters as `typo.plugin`
+```
