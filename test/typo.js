@@ -30,11 +30,11 @@ typo.register('sum', function(value){{
 
 typo.log('{{sum 1,2,3}}');      // print 6
 
-typo.log(
-	'{{rgb:#f26d7d peach font}}' + 
-	'{{bg.rgb:#f26d7d|rgb:#000 peach bg and black font}}' +
-	'{{bg.rgb:#f26d7d peach bg and white font}}'
-);
+// typo.log(
+// 	'{{rgb:#f26d7d peach font}}' + 
+// 	'{{bg.rgb:#f26d7d|rgb:#000 peach bg and black font}}' +
+// 	'{{bg.rgb:#f26d7d peach bg and white font}}'
+// );
 
 typo.register({
     json: function(value) {
