@@ -1,6 +1,11 @@
 'use strict';
 
-var typo = require('typo');
+var typo = require('typo')({
+    clean: true,
+    output: process.stdout
+});
+
+// typo.pipe(process.stdout)
 
 var a = 'abc{{blue|bold blu e}}{{blue blue}} eee{{bold a}} {{0}}abc{{red red}}';
 
@@ -28,7 +33,7 @@ typo.log('{{sum 1,2,3}}');      // print 6
 typo.log(
 	'{{rgb:#f26d7d peach font}}' + 
 	'{{bg.rgb:#f26d7d|rgb:#000 peach bg and black font}}' +
-	'{{bg.rgb:#f26d7d peach bg and black font}}'
+	'{{bg.rgb:#f26d7d peach bg and white font}}'
 );
 
 typo.register({

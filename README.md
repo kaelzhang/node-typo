@@ -16,8 +16,14 @@ npm install typo --save
     
 ## Getting started
 
+Typo is a [`Readable stream`](http://nodejs.org/api/stream.html#stream_class_stream_readable), which means you can `.pipe()` and `.on('data', c)` with it.
+
 ```js
-var typo = require('typo');
+// create a typo instance
+var typo = require('typo')();
+
+// remember to pipe
+typo.pipe(process.stdout);
 
 typo.log("There's once in a {{blue blue}} moon~");
 ```
