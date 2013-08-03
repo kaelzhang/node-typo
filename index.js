@@ -9,16 +9,19 @@ function typo(options){
     return new Typo(options);
 };
 
-// typo.util.RGB = require('./util/rgb');
-
 typo.Typo = Typo;
 
 
-// typo.__proto__ = new Typo;
+// util method of RGB
+typo.util = {
+    RGB: require('./lib/util/rgb')
+};
 
-// Typo.call(typo, {
-//     output: process.stdout
-// });
+
+// register a global helper or global helpers
+typo.register = function (pattern, parser) {
+    Typo._register(Typo.Helpers.prototype, pattern, parser);  
+};
 
 
 
