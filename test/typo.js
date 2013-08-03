@@ -1,7 +1,7 @@
 'use strict';
 
 var typo = require('typo')({
-    clean: true,
+    clean: ~ process.argv.indexOf('--clean'),
     output: process.stdout
 });
 
@@ -49,3 +49,5 @@ typo.log('json: {{json a}}', {
         }
     }
 });
+
+typo.write('blahblah')
