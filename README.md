@@ -173,6 +173,12 @@ The writeable stream to write into. If set, typo will `.pipe()` output to that s
 
 However, you could also use `.pipe()` method to do this.
 
+##### options.EOS `String`
+
+Optional, default to `'\n'`
+
+The End-of-Sentence. By default, it's a carriage return.
+
 
 ## Instance Methods
 
