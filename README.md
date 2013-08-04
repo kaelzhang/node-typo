@@ -102,7 +102,7 @@ if you like `typo`, there will be a billion thanks if you fork `typo` and make p
 ## Available helpers
 The helpers below are built-in helpers of typo, and you could define your own helpers by `typo.register` method.
 
-There will also be typo plugins soon or gradually.
+You can also use `typo.plugin` method to register helpers of typo plugins.
 
 ### Basic colors
 
