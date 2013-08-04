@@ -23,7 +23,7 @@ Typo is a [`Readable stream`](http://nodejs.org/api/stream.html#stream_class_str
 var typo = require('typo')();
 
 // remember to pipe
-typo.pipe(process.stdout);
+typo.pipe(process.stdout); // or, `var typo = require('typo')({output: process.stdout})`
 
 typo.log("There's once in a {{blue blue}} moon~");
 ```
@@ -75,7 +75,7 @@ typo.register('sum', function(value){{
 typo.log('{{sum 1,2,3}}');         // print 6
 ```
 
-#### Work with plugins
+#### Working with plugins
 
 You need to install plugins first.
 ```sh
@@ -154,7 +154,7 @@ var typo = Typo(options);
 Or
 
 ```js
-// this is the typo constructor from which your module  could be inherited.
+// this is the typo constructor from which your module could be inherited.
 var Typo = require('typo').Typo; 
 var typo = new Typo(options);
 ```
@@ -163,7 +163,7 @@ var typo = new Typo(options);
 
 Optional, default to `true`
 
-If true, typo will clean all styles (colors, bold, etc) and output the pure text, which is really helpfull if you use typo in CI.
+If false, typo will clean all styles (colors, bold, etc) and output the pure text, which is really helpfull if you use typo in CI.
 
 ##### options.output `Stream.Writeable`
 
