@@ -13,7 +13,9 @@ typo.Typo = Typo;
 
 // register a global helper or global helpers
 typo.register = function (pattern, parser) {
-    Typo._register(Typo.Helpers.prototype, pattern, parser);  
+
+    // To override global configurations is forbidden
+    Typo._register(Typo.Helpers.prototype, false, pattern, parser);  
 };
 
 typo.plugin = function (plugin) {
