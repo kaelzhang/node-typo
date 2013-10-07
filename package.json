@@ -1,6 +1,6 @@
 {
   "name": "typo",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Typo is a scalable template engine designed for cli, which help to format your console output! Typo supports full 256-color ANSI background and foreground, underline, italic, etc.",
   "main": "index.js",
   "scripts": {
@@ -31,12 +31,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/kaelzhang/typo.git"
+    "url": "git@github.com:kaelzhang/node-typo.git"
   },
   "author": "kael",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaelzhang/typo/issues"
+    "url": "https://github.com/kaelzhang/node-typo/issues"
   },
   "dependencies": {}
 }
