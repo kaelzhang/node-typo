@@ -1,7 +1,21 @@
-'use strict';
+const test = require('ava')
+const Parser = require('../lib/parser')
 
-var parser = require('../lib/parser');
+test('abc', t => {
+  const p = new Parser()
 
-var a = 'abc{{a b c d}} eee{{a\\ b|d c, d,e}} {{0}}abc{{abc d}}';
+  const result = p.parse(`abc
+    aaa{{blue blue}}bbb
+    ccc{{blue blue blue}}ddd
+    eee{{blue|blue blue}}fff
+    ggg{{blue:blue blue}}hhh
+    ggg{{blue:blue,blue blue}}hhh
+    iii{{blue\\ blue blue}}jjj
+    kkk{{blue:blue\\:blue blue}}lll
+    kkk{{blue:blue\\:blue,blue blue}}lll
+`)
 
-console.log( parser.parse(a) );
+  console.log(JSON.stringify(result, null, 2))
+
+  t.is(true, true)
+})

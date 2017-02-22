@@ -1,8 +1,5 @@
-# Cortex project
-build/
-
-# php files
-index.php
+# babel dist
+/lib
 
 # Numerous always-ignore extensions
 *.bak
@@ -18,6 +15,10 @@ index.php
 *.vi
 *~
 *.sass-cache
+*.lock
+*.rdb
+*.db
+nohup.out
 
 # OS or Editor folders
 .DS_Store
@@ -41,10 +42,13 @@ node_modules
 old/
 *-old/
 *-notrack/
+no-track/
 build/
 combo/
 reference/
 jscoverage_lib/
 temp/
+tmp/
 
-
+# codecov.io
+coverage/
