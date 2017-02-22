@@ -5,7 +5,11 @@
 const OPEN = '{{'
 const CLOSE = '}}'
 
-const Tokenizer = require('./parser')
+const Tokenizer = require('./tokenizer')
+const {
+  run,
+  run_async
+} = require('./runtime')
 
 
 class Typo {
@@ -16,27 +20,44 @@ class Typo {
     // - throw
     // - print
     value_not_defined = 'ignore',
+    concurrency,
     helpers
   } = {}) {
 
     this._helpers = {}
     this._tokenizer = new Tokenizer({open, close})
+    this._concurrency = concurrency
 
     if (helpers) {
-
+      this.use(helpers)
     }
   }
 
-  parse (template) {
-    const tokens = this._tokenizer.parse(template)
+  compile (template, {
+    async = true
+  } = {}) {
 
+    const tokens = this._tokenizer.parse(template)
+    return (data) => {
+      const runner = async
+        ? run_async
+        : run
+
+      runner({
+        tokens,
+        data,
+        helpers: this._helpers,
+        concurrency: this._concurrency
+      })
+    }
   }
 
-  template (template, data) {
-
+  template (template, data, options) {
+    return this.compile(template, options)(data)
   }
 
   _use (name, helper) {
+    // TODO: assertion
     this._helpers[name] = helper
   }
 
@@ -51,127 +72,4 @@ class Typo {
     this._use(name, helper)
     return this
   }
-
-  _substitute
 }
-
-
-// @param {Object} options
-// - output: {Stream.Writeable}
-// - clean: {boolean} if true, typo will not output SGR charactors
-function Typo(options) {
-  options = options || {};
-
-  this.colors = 'colors' in options ? options.colors : true;
-  this.EOS = options.EOS || '\n';
-
-  var output = options.output;
-  output && this.pipe(output);
-
-  this._helpers = new Typo.Helpers();
-};
-
-
-Typo.prototype.write = function(value) {
-
-  // prevent error of `process.stdout`
-  this.emit('data', String(value));
-};
-
-
-Typo.prototype.log = function(template, params, callback) {
-  var self = this;
-
-  this.template(template, params, function(err, value) {
-    if (err) {
-      return callback && callback(err);
-    }
-
-    self.write(value + self.EOS);
-
-    callback && callback(null, value);
-  });
-};
-
-
-Typo.prototype.template = function(template, params, callback) {
-  if (arguments.length === 2 && typeof params === 'function') {
-    callback = params;
-    params = {};
-  }
-
-  var self = this;
-
-  var value = substitute(template, params, this._helpers, function(err, value) {
-    if (callback) {
-      if (err) {
-        return callback(err);
-      }
-
-      callback(null, self._clean(value));
-    }
-  });
-
-  return this._clean(value);
-};
-
-
-// Register a helper function or register several helpers
-// @param {string} pattern
-// @param {function(value[, callback])} parser
-//    - value: {mixed}
-//  - callback: {function(err, value)} if there's `callback` arguemtn in parser, `parser` will be considered as an asynchronous method
-//        - err: {Object} error object
-//        - value: {mixed} parsed value
-Typo.prototype.register = function(pattern, parser) {
-
-  // allow override for instances
-  Typo._register(this._helpers, true, pattern, parser);
-};
-
-
-// Register a typo plugin
-Typo.prototype.plugin = function(plugin) {
-  this.register(plugin.helpers);
-};
-
-
-// @param {Object} host the host object to register helper functions to
-// @param {boolean} override whether override existing helpers
-Typo._register = function(host, override, pattern, parser) {
-  if (Object(pattern) === pattern) {
-    var patterns = pattern;
-
-    for (pattern in patterns) {
-      parser = patterns[pattern];
-      Typo._register(host, override, pattern, parser);
-    }
-
-  } else if (typeof pattern === 'string' && typeof parser === 'function') {
-    if (override || !(pattern in host)) {
-      host[pattern] = parser;
-    }
-  }
-};
-
-
-
-// var REGEX_SUFFIX = /\x1B\[\d+m$/i;
-
-// foreground   : '\x1b[38;5;<cgr>m';
-// background   : '\x1b[48;5;<cgr>m';
-// normal cgr   : '\x1b[<cgr>m'
-// suffix       : '\x1b[\d+m'
-var REGEX_CGR = /\x1B\[(?:\d+;)*\d+m/ig;
-
-Typo.prototype._clean = function(subject) {
-  return !this.colors ? subject && subject.replace(REGEX_CGR, '') : subject;
-};
-
-
-function Helpers() {};
-
-// register ansi helpers
-mix(Helpers.prototype, require('./helper/cgr'));
-
-Typo.Helpers = Helpers;
