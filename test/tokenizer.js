@@ -1,10 +1,10 @@
 const test = require('ava')
-const Parser = require('../lib/parser')
+const Tokenizer = require('../lib/tokenizer')
 
 test('abc', t => {
-  const p = new Parser()
+  const t = new Tokenizer()
 
-  const result = p.parse(`abc
+  const result = t.parse(`abc
     aaa{{blue blue}}bbb
     ccc{{blue blue blue}}ddd
     eee{{blue|blue blue}}fff

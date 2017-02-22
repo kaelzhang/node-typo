@@ -3,10 +3,6 @@ const REGEX_ENDS_WITH_SLASH = /\\$/
 
 
 module.exports = class Tokenizer {
-  static is = (subject) => {
-    return !!subject && subject
-  }
-
   constructor ({
     open,
     close

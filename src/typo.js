@@ -5,18 +5,22 @@
 const OPEN = '{{'
 const CLOSE = '}}'
 
-const Parser = require('./parser')
+const Tokenizer = require('./parser')
 
 
 class Typo {
   constructor ({
     open = OPEN,
     close = CLOSE,
+    // - ignore
+    // - throw
+    // - print
+    value_not_defined = 'ignore',
     helpers
   } = {}) {
 
     this._helpers = {}
-    this._parser = new Parser({open, close})
+    this._tokenizer = new Tokenizer({open, close})
 
     if (helpers) {
 
@@ -24,7 +28,8 @@ class Typo {
   }
 
   parse (template) {
-    const
+    const tokens = this._tokenizer.parse(template)
+
   }
 
   template (template, data) {

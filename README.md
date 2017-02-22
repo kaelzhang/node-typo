@@ -14,7 +14,10 @@
 
 # typo
 
-<!-- description -->
+`typo` is an extendable template engine designed for the future:
+
+- featured with `Promise` and `async/await`.
+- powerful custom sync/async helpers.
 
 ## Install
 
@@ -25,8 +28,45 @@ $ npm install typo --save
 ## Usage
 
 ```js
-const typo = require('typo')
+const typo = require('typo')()
+typo.template('Hello, "{{foo}}"', {foo: "bar"}).then(console.log)
+// Hello, "bar"
 ```
+
+### `typo` with chalk
+
+```js
+const typo = require('typo')()
+const chalk = require('typo-chalk')
+typo.use(chalk)
+
+typo.template('Once in a {{blue blue}} moon').then(console.log)
+// Then it will print a blue word "blue"
+```
+
+### Custom helpers
+
+Basic:
+
+```js
+typo.use('upper', word => word.toUpperCase())
+typo.template('{{upper foo}} bar').then(console.log)
+// FOO bar
+```
+
+### Asychronous helpers
+
+```js
+```
+
+## Syntax
+
+```
+{{<helper-name>[:<helper-params>][|<helper-name&params>] <values>}}
+{{<values>}}
+```
+
+
 
 ## License
 
