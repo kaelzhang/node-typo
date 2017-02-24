@@ -42,7 +42,9 @@
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.5",
+    "object-access": "^1.1.4",
     "p-map": "^1.1.1",
-    "p-waterfall": "^1.0.0"
+    "p-waterfall": "^1.0.0",
+    "split-string": "^1.0.0"
   }
 }

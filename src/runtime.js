@@ -1,20 +1,42 @@
+module.exports = {
+  run,
+  run_async
+}
+
 const Parser = require('./parser')
 const util = require('util')
 const map = require('p-map')
 const waterfall = require('p-waterfall')
+const access = require('object-access')
+const DEFAULT_VALUE = {}
 
-module.exports = substitute
+
+function run ({
+  tokens,
+  data,
+  helpers
+}) {
+
+  return tokens.map(token => {
+    if (Object(token) !== token) {
+      return token
+    }
+
+    return substitute(token, data, helpers)
+  })
+  .join('')
+}
 
 
 // No fault tolerance
-function substitute ({
-  // @type {Array}
-  parsed,
-  // @type {Object}
-  params,
-  // @type {helpers}
+// - tokens `Array` tokens
+// - data `Object` data to substitute into the template
+// - helpers `Object.<name,helper>`
+// - concurrency `Number=`
+function run_async ({
+  tokens,
+  data,
   helpers,
-
   concurrency
 }) {
 
@@ -24,12 +46,12 @@ function substitute ({
     options.concurrency = concurrency
   }
 
-  return map(parsed, async section => {
-    if (Object(section) !== section) {
-      return section
+  return map(tokens, async token => {
+    if (Object(token) !== token) {
+      return token
     }
 
-    return substitute_one(section, params, helpers)
+    return substitute_one_async(token, data, helpers)
 
   }, options)
   .then(slices => slices.join(''))
@@ -111,7 +133,7 @@ function assign(param, obj, default_value, maintain) {
   var key
   var value = obj
 
-  for ( i < len i++) {
+  for (; i < len; i++) {
     key = hierarchies[i]
 
     if (key in value) {
@@ -157,23 +179,3 @@ function single(helper, helpers, param, callback) {
     helper_function.call(context, param, callback)
   }
 }
-
-
-// // TODO: support multiple lines
-// runtime.log = function(template, params, helpers, callback) {
-//     if(arguments.length === 2 && typeof params === 'function'){
-//         callback = params
-//         params = {}
-//     }
-
-//     runtime.template(template, params, function(err, value) {
-//         if(err){
-//             return callback && callback(err)
-//         }
-
-//         // formated output
-//         process.stdout.write(value + '\n')
-
-//         callback && callback(null, value)
-//     })
-// }
