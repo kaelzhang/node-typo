@@ -3,7 +3,7 @@ const typo = require('..')
 const chalk = require('chalk')
 
 
-test('basic', t => {
+test('basic with chalk', t => {
   const {
     template
   } = require('./fixtures/tokens')
@@ -19,5 +19,7 @@ test('basic', t => {
   const compiled = p.compile('Once in a {{blue blue}} moon', {
     async: false
   })
+
+  t.is(compiled(), `Once in a ${chalk.blue('blue')} moon`)
   console.log('compiled', compiled())
 })
