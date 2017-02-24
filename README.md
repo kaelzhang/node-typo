@@ -37,7 +37,7 @@ typo.template('Hello, "{{foo}}"', {foo: "bar"}).then(console.log)
 
 ```js
 const typo = require('typo')()
-const chalk = require('typo-chalk')
+const chalk = require('chalk')
 typo.use(chalk)
 
 typo.template('Once in a {{blue blue}} moon').then(console.log)

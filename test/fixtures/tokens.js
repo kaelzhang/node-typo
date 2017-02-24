@@ -1,5 +1,5 @@
 const template = `a
- a{{b c}}d
+ a{{b:a c}}d
  e{{f}}h
 `
 
@@ -18,6 +18,7 @@ const tokens = [
       {
         "type": "Helper",
         "name": "b",
+        "param": "a",
         "loc": {
           "line": 2,
           "col": 5
@@ -58,6 +59,7 @@ const tokens = [
     }
   }
 ]
+
 
 module.exports = {
   template,

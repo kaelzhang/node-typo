@@ -6,27 +6,24 @@ const OPEN = '{{'
 const CLOSE = '}}'
 
 const Tokenizer = require('./tokenizer')
+const { EventEmitter } = require('events')
 const {
   run,
   run_async
 } = require('./runtime')
 
 
-class Typo {
+class Typo extends EventEmitter {
   constructor ({
     open = OPEN,
     close = CLOSE,
-    // - ignore
-    // - throw
-    // - print
-    value_not_defined = 'ignore',
-    concurrency,
     helpers
   } = {}) {
 
+    super()
+
     this._helpers = {}
     this._tokenizer = new Tokenizer({open, close})
-    this._concurrency = concurrency
 
     if (helpers) {
       this.use(helpers)
@@ -34,20 +31,27 @@ class Typo {
   }
 
   compile (template, {
-    async = true
+    async = true,
+    concurrency,
+    // - ignore
+    // - throw
+    // - print
+    value_not_defined = 'print'
   } = {}) {
 
     const tokens = this._tokenizer.parse(template)
-    return (data) => {
+    return (data = {}) => {
       const runner = async
         ? run_async
         : run
 
-      runner({
+      return runner({
         tokens,
         data,
         helpers: this._helpers,
-        concurrency: this._concurrency
+        value_not_defined,
+        template,
+        concurrency
       })
     }
   }
@@ -72,4 +76,11 @@ class Typo {
     this._use(name, helper)
     return this
   }
+}
+
+
+module.exports = {
+  OPEN,
+  CLOSE,
+  Typo
 }

@@ -8,6 +8,7 @@
     "transform-exponentiation-operator",
     "syntax-trailing-function-commas",
     "transform-inline-environment-variables",
-    "transform-es2015-modules-commonjs"
+    "transform-es2015-modules-commonjs",
+    "transform-async-to-generator"
   ]
 }

@@ -210,14 +210,14 @@ module.exports = class Tokenizer {
   _digest_helper (helper, nodes) {
     const [
       name,
-      params
+      param
 
     ] = split(helper, ':')
 
     nodes.push({
       type: 'Helper',
       name,
-      params,
+      param,
       loc: this._loc()
     })
 

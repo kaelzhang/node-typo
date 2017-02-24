@@ -6,23 +6,41 @@ module.exports = {
 const Parser = require('./parser')
 const util = require('util')
 const map = require('p-map')
-const waterfall = require('p-waterfall')
-const access = require('object-access')
+const reduce = require('p-reduce')
 const DEFAULT_VALUE = {}
+const {
+  get_helper,
+  get_value
+} = require('./utils')
 
 
 function run ({
   tokens,
   data,
-  helpers
+  helpers,
+  template,
+  value_not_defined
 }) {
 
-  return tokens.map(token => {
-    if (Object(token) !== token) {
-      return token
+  return tokens
+  .map(token => {
+    if (token.type === 'String') {
+      return token.value
     }
 
-    return substitute(token, data, helpers)
+    if (token.type === 'Replacer') {
+      return get_replacer_value(token, data, template, value_not_defined)
+    }
+
+    const value = get_replacer_value(token.replacer, data, template, value_not_defined)
+
+    return token.helpers.reduce((prev, current) => {
+      const helper = get_helper(current.name, helpers, template, current.loc)
+      return current.param
+        ? helper(prev, current.param)
+        : helper(prev)
+
+    }, value)
   })
   .join('')
 }
@@ -37,7 +55,9 @@ function run_async ({
   tokens,
   data,
   helpers,
-  concurrency
+  template,
+  concurrency,
+  value_not_defined
 }) {
 
   const options = {}
@@ -47,135 +67,40 @@ function run_async ({
   }
 
   return map(tokens, async token => {
-    if (Object(token) !== token) {
-      return token
+    if (token.type === 'String') {
+      return token.value
     }
 
-    return substitute_one_async(token, data, helpers)
+    if (token.type === 'Replacer') {
+      return get_replacer_value(token, data, template, value_not_defined)
+    }
+
+    const value = get_replacer_value(token.replacer, data, template, value_not_defined)
+
+    return reduce(token.helpers, async (prev, current) => {
+      const helper = get_helper(current.name, helpers, template, current.loc)
+      return current.param
+        ? helper(prev, current.param)
+        : helper(prev)
+
+    }, value)
 
   }, options)
   .then(slices => slices.join(''))
 }
 
 
-// no fault tolarance and argument overloading
-// run a single task
-// @param {Object} task returnValue of parser.single
-
-// { helper: [], param: 'abc', data: '' }
-function tasks(section, params, helpers) {
-  var series
-
-  var init_value = assign(task.param, params)
-
-  async.waterfall(
-    series = task.helper.map(function(helper, i) {
-
-      // @param {function()} done `done` function of async
-      // @param {mixed} prev_value previous value
-      return function(prev_value, done) {
-
-        // first run
-        if (i === 0) {
-          done = prev_value
-          prev_value = init_value
-        }
-
-        if (helper.data) {
-          // {{rgb:data abc}}, {data: '#ffddee'}
-          // -> {{rgb:#ffddee abc}}
-          helper.data = assign(helper.data, params)
-        }
-
-        single(helper, helpers, prev_value, function(err, value) {
-          if (err) {
-            return done(err)
-          }
-
-          // pipe the current result to the next helper
-          done(null, value)
-        })
-      }
-    }),
-
-    function(err, value) {
-      if (err) {
-        if (err.code === 404) {
-
-          // if helper function not found, return original source
-          return callback(err, task.source)
-        } else {
-          return callback(err)
-        }
-      }
-
-      callback(null, series.length === 0 ? init_value : value)
-
-      // free
-      series.length = 0
+function get_replacer_value (node, data, template, value_not_defined) {
+  try {
+    return get_value(node.value, data, template, node.loc)
+  } catch (e) {
+    switch (value_not_defined) {
+      case 'ignore':
+        return ''
+      case 'throw':
+        throw e
+      case 'print':
+        return node.value
     }
-  )
-}
-
-
-// 'a.b', {a: {b: 1}} -> 1
-// 'a.b', {a: 1}, false -> false
-// 'a.b', undefined -> 'a.b'
-function assign(param, obj, default_value, maintain) {
-  if (arguments.length === 2) {
-    default_value = param
-  }
-
-  // 'a.b' -> ['a', 'b']
-  var hierarchies = maintain ? [param] : param.split('.')
-  var i = 0
-  var len = hierarchies.length
-  var key
-  var value = obj
-
-  for (; i < len; i++) {
-    key = hierarchies[i]
-
-    if (key in value) {
-      value = value[key]
-    } else {
-
-      // 'a.b', {a: 1} -> 'a.b'
-      return default_value
-    }
-  }
-
-  // 'a.b', {a: {b: 1}} -> 1
-  return value
-}
-
-
-function single(helper, helpers, param, callback) {
-  var name = helper.name
-  var data = helper.data
-  var context = {}
-
-  var helper_function = name ?
-    assign(name, helpers, null, true) :
-
-    // if no name, treat as default helper
-    // {{abc}} -> 'abc'
-    helpers.DEFAULT
-
-  if (!helper_function) {
-    return callback({
-      code: 404
-    })
-  }
-
-  if (data) {
-    context.data = data
-  }
-
-  if (helper_function.length === 1) {
-    callback(null, helper_function.call(context, param))
-
-  } else {
-    helper_function.call(context, param, callback)
   }
 }
