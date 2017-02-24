@@ -21,5 +21,4 @@ test('basic with chalk', t => {
   })
 
   t.is(compiled(), `Once in a ${chalk.blue('blue')} moon`)
-  console.log('compiled', compiled())
 })

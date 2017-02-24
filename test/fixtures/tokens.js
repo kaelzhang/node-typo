@@ -30,7 +30,7 @@ const tokens = [
       "value": "c",
       "loc": {
         "line": 2,
-        "col": 7
+        "col": 9
       }
     }
   },
@@ -39,7 +39,7 @@ const tokens = [
     "value": "d\n e",
     "loc": {
       "line": 2,
-      "col": 10
+      "col": 12
     }
   },
   {

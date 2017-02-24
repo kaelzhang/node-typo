@@ -1,6 +1,7 @@
 const test = require('ava')
 const Tokenizer = require('../lib/tokenizer')
 
+
 test('tokenizer', t => {
   const p = new Tokenizer({
     open: '{{',
@@ -13,5 +14,5 @@ test('tokenizer', t => {
   } = require('./fixtures/tokens')
 
   const result = p.parse(template)
-  // console.log(JSON.stringify(result, null, 2))
+  t.deepEqual(result, tokens)
 })
