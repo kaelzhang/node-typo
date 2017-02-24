@@ -231,10 +231,7 @@ module.exports = class Tokenizer {
     }
   }
 
-  // split a template into two parts by the specified `splitter` and will ignore `'\\' + splitter`
-  // @param {string} template
-  // @param {string} splitter
-  // @returns {Array} array with 2 items
+  // split a template into two parts by the specified `splitter` and will ignore the escaped `'\\' + splitter`
   _split_directive (template, splitter) {
     const splitted = split(template, splitter)
 
