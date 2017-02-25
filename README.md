@@ -29,15 +29,19 @@ $ npm install typo --save
 
 ```js
 const typo = require('typo')()
-typo.template('Hello, "{{foo}}"', {foo: "bar"}).then(console.log)
-// Hello, "bar"
+typo.template('Hello, {{user.name}}!', {
+  user: {
+    name: 'Steve'
+  }
+}).then(console.log)
+// Hello, Steve!
 ```
 
 ### `typo` with chalk
 
 ```js
 const typo = require('typo')()
-const chalk = require('chalk')
+const chalk = require('typo-chalk')
 typo.use(chalk)
 
 typo.template('Once in a {{blue blue}} moon').then(console.log)
@@ -57,15 +61,61 @@ typo.template('{{upper foo}} bar').then(console.log)
 ### Asychronous helpers
 
 ```js
+typo.use('fullname', async name => await getFullNameFromServer(name))
+typo.template('{{fullname name}}', {name: 'Steve'}).then(console.log)
+// Steve Jobs
+
+typo.template('{{fullname Steve}}').then(console.log)
+// Steve Jobs
 ```
+
+### Compile the template and use it Later
+
+```
+const template = typo.compile(`Once in a {{blue color}} moon`)
+
+template({color: 'blue'})
+.then(console.log)
+// Once in a blue moon
+```
+
+## compile(template, compile_options)
+
+Returns `function(data)`
+
+- **template** `String`
+- **compile_options** `Object`
+  - async `Boolean=true` whether should be compiled into an asynchronous function, defualts to `true`
+  - concurrency `Number=Number.POSITIVE_INFINITY` If compiled as an asynchronous function, the number of max concurrently pending helper functions.
+  - value_not_defined `enum.<print|ignore|throw>` Suppose the value of an expression is not found in `data`, then it will print the expression directly if `print`, or print nothing if `ignore`, or throw an error if `throw`.
+
+async: false
+
+```js
+const result = typo.compile(template)(data)
+console.log(result)
+```
+
+async: true (default)
+
+```js
+typo.compile(template)(data).then(console.log)
+```
+
+## template(template, data, compile_options)
+
+- template `String`
+- data `Object=`
+- compile_options `Object=`
+
+Returns `Promise` if `compile_options.async` is `true`(default), or `String` the substituted result if is not.
 
 ## Syntax
 
+```mustache
+{{<helper-name>[:<helper-params>][|<helper-name&params>] <expression>}}
+{{<expression>}}
 ```
-{{<helper-name>[:<helper-params>][|<helper-name&params>] <values>}}
-{{<values>}}
-```
-
 
 
 ## License

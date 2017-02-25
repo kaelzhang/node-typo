@@ -65,7 +65,7 @@ class Typo extends EventEmitter {
     this._helpers[name] = helper
   }
 
-  use (name, helpers) {
+  use (name, helper) {
     if (Object(name) === name) {
       Object.keys(name).forEach((n) => {
         this._use(n, name[n])

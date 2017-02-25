@@ -3,6 +3,18 @@ const typo = require('..')
 const chalk = require('chalk')
 
 
+// const CASES = [
+//   {
+//     template,
+//     open,
+//     close,
+//     async,
+//     concurrency,
+//     value_not_defined
+//   },
+
+// ]
+
 test('basic with chalk', t => {
   const {
     template
@@ -21,4 +33,15 @@ test('basic with chalk', t => {
   })
 
   t.is(compiled(), `Once in a ${chalk.blue('blue')} moon`)
+})
+
+
+test.cb('async', t => {
+  const result = typo()
+  .use('foo', async v => v + ' baz')
+  .compile(`{{foo bar}}`)()
+  .then((value) => {
+    t.is(value, 'bar baz')
+    t.end()
+  })
 })

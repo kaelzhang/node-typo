@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "test": "npm run build && ava --verbose --timeout=10s",
+    "test": "npm run build && node --harmony ./node_modules/.bin/ava --verbose --timeout=10s",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -16,7 +16,7 @@
     "typo"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=7.2"
   },
   "author": "kaelzhang",
   "license": "MIT",
