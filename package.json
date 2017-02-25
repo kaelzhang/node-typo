@@ -1,7 +1,7 @@
 {
   "name": "typo",
-  "version": "1.0.1",
-  "description": "typo",
+  "version": "1.0.3",
+  "description": "`typo` is an extendable template engine designed for the future",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
@@ -13,7 +13,13 @@
     "url": "git://github.com/kaelzhang/node-typo.git"
   },
   "keywords": [
-    "typo"
+    "typo",
+    "template",
+    "engine",
+    "template engine",
+    "helpers",
+    "scalable",
+    "custom helpers"
   ],
   "engines": {
     "node": ">=7.2"
