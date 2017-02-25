@@ -1,6 +1,6 @@
 {
   "name": "typo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "`typo` is an extendable template engine designed for the future",
   "main": "index.js",
   "scripts": {

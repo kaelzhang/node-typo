@@ -71,7 +71,7 @@ typo.template('{{fullname Steve}}').then(console.log)
 
 ### Compile the template and use it Later
 
-```
+```js
 const template = typo.compile(`Once in a {{blue color}} moon`)
 
 template({color: 'blue'})
@@ -79,15 +79,24 @@ template({color: 'blue'})
 // Once in a blue moon
 ```
 
+## typo({open, close})
+
+Creates the `typo` instance.
+
+- **open** `String={{` The beginning of each directive.
+- **close** `String=}}` The end of each directive.
+
 ## compile(template, compile_options)
 
-Returns `function(data)`
+Compiles a template into a function.
 
 - **template** `String`
 - **compile_options** `Object`
   - async `Boolean=true` whether should be compiled into an asynchronous function, defualts to `true`
   - concurrency `Number=Number.POSITIVE_INFINITY` If compiled as an asynchronous function, the number of max concurrently pending helper functions.
   - value_not_defined `enum.<print|ignore|throw>` Suppose the value of an expression is not found in `data`, then it will print the expression directly if `print`, or print nothing if `ignore`, or throw an error if `throw`.
+
+Returns `function(data)`
 
 async: false
 
