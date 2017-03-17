@@ -3,7 +3,6 @@ module.exports = {
   run_async
 }
 
-const Parser = require('./parser')
 const util = require('util')
 const map = require('p-map')
 const reduce = require('p-reduce')
@@ -19,7 +18,7 @@ function run ({
   data,
   helpers,
   template,
-  value_not_defined
+  value_not_defined = 'print'
 }) {
 
   return tokens
