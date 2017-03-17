@@ -94,7 +94,7 @@ Compiles a template into a function.
 - **compile_options** `Object`
   - async `Boolean=true` whether should be compiled into an asynchronous function, defaults to `true`
   - concurrency `Number=Number.POSITIVE_INFINITY` If compiled as an asynchronous function, the number of max concurrently pending helper functions.
-  - value_not_defined `enum.<print|ignore|throw>` Suppose the value of an expression is not found in `data`, then it will print the expression directly if `print`, or print nothing if `ignore`, or throw an error if `throw`.
+  - value_not_defined `enum.<print|ignore|throw>=print` Suppose the value of an expression is not found in `data`, then it will print the expression directly if `print`(as default), or print nothing if `ignore`, or throw an error if `throw`.
 
 Returns `function(data)`
 
