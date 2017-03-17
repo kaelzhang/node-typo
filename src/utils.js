@@ -16,19 +16,19 @@ function get (name, object, template, loc, message) {
     return value
   }
 
-  throw new Error(`${create_frame(template, loc)}
+  throw new Error(`${message}
 
-${message}`)
+${create_frame(template, loc)}`)
 }
 
 
 function get_helper (name, helpers, template, loc) {
-  return get(name, helpers, template, loc, `Helper "${name}" not found`)
+  return get(name, helpers, template, loc, `helper "${name}" not found`)
 }
 
 
 function get_value (name, data, template, loc) {
-  return get(name, data, template, loc, `Value not found for key "${name}"`)
+  return get(name, data, template, loc, `value not found for key "${name}"`)
 }
 
 

@@ -18,7 +18,8 @@ function run ({
   data,
   helpers,
   template,
-  value_not_defined = 'print'
+  value_not_defined,
+  directive_value_not_defined
 }) {
 
   return tokens
@@ -31,7 +32,7 @@ function run ({
       return get_replacer_value(token, data, template, value_not_defined)
     }
 
-    const value = get_replacer_value(token.replacer, data, template, value_not_defined)
+    const value = get_replacer_value(token.replacer, data, template, directive_value_not_defined)
 
     return token.helpers.reduce((prev, current) => {
       const helper = get_helper(current.name, helpers, template, current.loc)
@@ -56,7 +57,8 @@ function run_async ({
   helpers,
   template,
   concurrency,
-  value_not_defined
+  value_not_defined,
+  directive_value_not_defined
 }) {
 
   const options = {}
@@ -74,7 +76,7 @@ function run_async ({
       return get_replacer_value(token, data, template, value_not_defined)
     }
 
-    const value = get_replacer_value(token.replacer, data, template, value_not_defined)
+    const value = get_replacer_value(token.replacer, data, template, directive_value_not_defined)
 
     return reduce(token.helpers, async (prev, current) => {
       const helper = get_helper(current.name, helpers, template, current.loc)

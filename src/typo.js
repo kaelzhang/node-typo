@@ -36,7 +36,8 @@ class Typo extends EventEmitter {
     // - ignore
     // - throw
     // - print
-    value_not_defined = 'print'
+    value_not_defined = 'print',
+    directive_value_not_defined
   } = {}) {
 
     const tokens = this._tokenizer.parse(template)
@@ -50,6 +51,8 @@ class Typo extends EventEmitter {
         data,
         helpers: this._helpers,
         value_not_defined,
+        directive_value_not_defined: directive_value_not_defined
+          || value_not_defined,
         template,
         concurrency
       })

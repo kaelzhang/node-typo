@@ -17,7 +17,7 @@
 `typo` is an extendable template engine designed for the future:
 
 - featured with `Promise` and `async/await`.
-- powerful custom sync/async helpers.
+- powerful custom sync/async directives(helpers).
 
 ## Install
 
@@ -48,7 +48,7 @@ typo.template('Once in a {{blue blue}} moon').then(console.log)
 // Then it will print a blue word "blue"
 ```
 
-### Custom helpers
+### Custom directives
 
 Basic:
 
@@ -58,7 +58,7 @@ typo.template('{{upper foo}} bar').then(console.log)
 // FOO bar
 ```
 
-### Asychronous helpers
+### Asychronous directives
 
 ```js
 typo.use('fullname', async name => await getFullNameFromServer(name))
@@ -93,8 +93,35 @@ Compiles a template into a function.
 - **template** `String`
 - **compile_options** `Object`
   - async `Boolean=true` whether should be compiled into an asynchronous function, defaults to `true`
-  - concurrency `Number=Number.POSITIVE_INFINITY` If compiled as an asynchronous function, the number of max concurrently pending helper functions.
+  - concurrency `Number=Number.POSITIVE_INFINITY` If compiled as an asynchronous function, the number of max concurrently pending directive functions.
   - value_not_defined `enum.<print|ignore|throw>=print` Suppose the value of an expression is not found in `data`, then it will print the expression directly if `print`(as default), or print nothing if `ignore`, or throw an error if `throw`.
+  - directive_value_not_defined `enum.<print|ignore|throw>=value_not_defined` Tells `typo` what to do if the parameter expression of a directive is not found in `data`. And this option is default to the value of `value_not_defined`
+
+```js
+// default options
+typo.compile('{{blue color}}')()
+// prints a blue letter, "color"
+.then(console.log) => {
+
+// value_not_defined: throw
+typo.compile('{{blue color}}', {
+  value_not_defined: 'throw'
+})()
+.catch((e) => {
+  // code frame and
+  // 'value not found for key "color"''
+  console.error(e.message)
+})
+
+typo.compile('{{adjective}} {{blue color}}', {
+  value_not_defined: 'throw',
+  directive_value_not_defined: 'print'
+})({
+  adjective: 'beautiful'
+})
+// prints "beautiful color", and the letter color is blue
+.then(console.log)
+```
 
 Returns `function(data)`
 
@@ -122,7 +149,7 @@ Returns `Promise` if `compile_options.async` is `true`(default), or `String` the
 ## Syntax
 
 ```mustache
-{{<helper-name>[:<helper-params>][|<helper-name&params>] <expression>}}
+{{<directive>[:<directive-params>][|<directive&params>] <expression>}}
 {{<expression>}}
 ```
 
