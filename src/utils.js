@@ -23,7 +23,7 @@ ${create_frame(template, loc)}`)
 
 
 function get_helper (name, helpers, template, loc) {
-  return get(name, helpers, template, loc, `helper "${name}" not found`)
+  return get(name, helpers, template, loc, `directive "${name}" not defined`)
 }
 
 

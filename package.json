@@ -1,6 +1,6 @@
 {
   "name": "typo",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "`typo` is an extendable template engine designed for the future",
   "main": "index.js",
   "scripts": {
@@ -51,7 +51,8 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.16.0",
     "chalk": "^1.1.3",
-    "debug": "^2.6.3"
+    "debug": "^2.6.3",
+    "delay": "^1.3.1"
   },
   "dependencies": {
     "babel-code-frame": "^6.22.0",
